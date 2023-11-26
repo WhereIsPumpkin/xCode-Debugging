@@ -11,7 +11,7 @@ final class NetworkManager {
     
     static let shared = NetworkManager()
     
-    public init() {}
+    private init() {}
     
     func get<T: Decodable>(url: String, completion: @escaping ((Result<T, Error>) -> Void)) {
         
@@ -20,7 +20,7 @@ final class NetworkManager {
         URLSession.shared.dataTask(with: url) { data, response, error in
             
             if let error {
-                DispatchQueue.main.async { completion(.failure(error)) }
+                completion(.failure(error))
             }
             
             guard let data else { return }

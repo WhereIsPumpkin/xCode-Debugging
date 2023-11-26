@@ -22,9 +22,8 @@ final class NewsViewController: UIViewController {
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableView()
-        viewModel.delegate = self
+        setupViewModelDelegate()
         viewModel.viewDidLoad()
     }
     
@@ -43,6 +42,10 @@ final class NewsViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+    
+    private func setupViewModelDelegate() {
+        viewModel.delegate = self
+    }
 }
 
 // MARK: - TableViewDataSource
@@ -55,8 +58,7 @@ extension NewsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell else {
             fatalError("Could not dequeue NewsCell")
         }
-        let news = news[indexPath.row]
-        cell.configure(with: news)
+        cell.configure(with: news[indexPath.row])
         return cell
     }
 }

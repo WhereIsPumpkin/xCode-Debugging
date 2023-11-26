@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NewsViewModelDelegate {
+protocol NewsViewModelDelegate: AnyObject {
     func newsFetched(_ news: [News])
     func showError(_ error: Error)
 }
@@ -24,7 +24,7 @@ final class DefaultNewsViewModel: NewsViewModel {
     
     private var newsList = [News]()
 
-    var delegate: NewsViewModelDelegate?
+    weak var delegate: NewsViewModelDelegate?
 
     // MARK: - Public Methods
     func viewDidLoad() {
